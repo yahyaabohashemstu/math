@@ -208,10 +208,24 @@
       font-weight: 800; color: var(--geo); margin-bottom: .4rem; font-size: .9rem;
     }
     .answer {
+      display: none;
       background: #dcfce7; border: 1.5px solid #86efac;
-      border-radius: .6rem; padding: .6rem 1rem; margin-top: .6rem;
+      border-radius: .6rem; padding: .6rem 1rem; margin-top: .4rem;
       font-weight: 700; color: #15803d;
+      animation: fadeIn .25s ease;
     }
+    .answer.visible { display: block; }
+    .ans-reveal-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: .5rem; padding: .3rem .85rem;
+      border-radius: .4rem;
+      border: 1.5px solid #86efac;
+      background: #f0fdf4; color: #15803d;
+      font-size: .82rem; font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .ans-reveal-btn:hover { background: #dcfce7; transform: scale(1.02); }
     /* ====== WARN BOX ====== */
     .warn {
       background: #fff7ed; border: 1.5px solid #fed7aa;
@@ -1377,18 +1391,27 @@
     if (btn) btn.textContent = ans.classList.contains('visible') ? 'إخفاء الإجابة' : 'إظهار الإجابة';
   }
 
-  // Inject reveal buttons into all sol-cards
-  document.querySelectorAll('.sol-card').forEach(card => {
-    const ans = card.querySelector('.sol-answer');
-    if (!ans) return;
+  // Inject reveal buttons for ALL answer boxes (.answer and .sol-answer)
+  function makeRevealBtn(ans, labelShow, labelHide) {
     const btn = document.createElement('button');
-    btn.className = 'sol-reveal-btn';
-    btn.textContent = '🔍 أظهر الجواب';
-    btn.addEventListener('click', () => {
+    btn.className = 'ans-reveal-btn';
+    btn.innerHTML = '🔍 ' + labelShow;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const visible = ans.classList.toggle('visible');
-      btn.textContent = visible ? '🙈 أخفِ الجواب' : '🔍 أظهر الجواب';
+      btn.innerHTML = visible ? ('🙈 ' + labelHide) : ('🔍 ' + labelShow);
     });
     ans.parentElement.insertBefore(btn, ans);
+  }
+
+  // .answer boxes (inside examples, cards, 5.5, etc.)
+  document.querySelectorAll('.answer').forEach(ans => {
+    makeRevealBtn(ans, 'عرض الإجابة', 'إخفاء الإجابة');
+  });
+
+  // .sol-answer boxes (MEBI solutions bank)
+  document.querySelectorAll('.sol-answer').forEach(ans => {
+    makeRevealBtn(ans, 'عرض الجواب', 'إخفاء الجواب');
   });
 
   // Animate weight bars on load
