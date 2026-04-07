@@ -240,10 +240,22 @@
     }
     .sol-body { padding: .8rem 1rem; font-size: .9rem; }
     .sol-answer {
+      display: none;
       margin-top: .5rem; padding: .4rem .8rem;
       background: #dcfce7; border-radius: .4rem;
       color: #166534; font-weight: 700; font-size: .88rem;
     }
+    .sol-answer.visible { display: block; }
+    .sol-reveal-btn {
+      display: block; width: 100%; margin-top: .6rem;
+      padding: .35rem; border-radius: .4rem;
+      border: 1.5px dashed #86efac;
+      background: #f0fdf4; color: #15803d;
+      font-size: .82rem; font-weight: 700;
+      cursor: pointer; text-align: center;
+      transition: background .2s;
+    }
+    .sol-reveal-btn:hover { background: #dcfce7; }
     /* ====== QUIZ ====== */
     .quiz-item {
       background: #fff; border-radius: .8rem;
@@ -1364,6 +1376,20 @@
     const btn = qEl.querySelector('.show-btn');
     if (btn) btn.textContent = ans.classList.contains('visible') ? 'إخفاء الإجابة' : 'إظهار الإجابة';
   }
+
+  // Inject reveal buttons into all sol-cards
+  document.querySelectorAll('.sol-card').forEach(card => {
+    const ans = card.querySelector('.sol-answer');
+    if (!ans) return;
+    const btn = document.createElement('button');
+    btn.className = 'sol-reveal-btn';
+    btn.textContent = '🔍 أظهر الجواب';
+    btn.addEventListener('click', () => {
+      const visible = ans.classList.toggle('visible');
+      btn.textContent = visible ? '🙈 أخفِ الجواب' : '🔍 أظهر الجواب';
+    });
+    ans.parentElement.insertBefore(btn, ans);
+  });
 
   // Animate weight bars on load
   window.addEventListener('load', () => {
