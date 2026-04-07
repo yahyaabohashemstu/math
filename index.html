@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رياضيات الصف السادس – الفصل الثاني – الامتحان الأول</title>
+  <style>
+    /* ====== RESET & BASE ====== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --geo:   #2563eb;
+      --num:   #16a34a;
+      --prob:  #ea580c;
+      --alg:   #7c3aed;
+      --gold:  #d97706;
+      --dark:  #0f172a;
+      --card:  #ffffff;
+      --bg:    #f0f4ff;
+      --radius: 1rem;
+      --shadow: 0 4px 24px rgba(0,0,0,.10);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: #1e293b;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    h1, h2, h3, h4 { line-height: 1.4; }
+    /* ====== HERO ====== */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #4f46e5 100%);
+      color: #fff;
+      padding: 3.5rem 1rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 2rem;
+      padding: .3rem 1.1rem;
+      font-size: .85rem;
+      margin-bottom: 1rem;
+      letter-spacing: .05em;
+    }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: .5rem; }
+    .hero p  { font-size: 1.05rem; opacity: .85; max-width: 600px; margin: .5rem auto 1.5rem; }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: .8rem;
+      justify-content: center; margin-top: 1.2rem;
+    }
+    .hero-meta span {
+      background: rgba(255,255,255,.12);
+      border-radius: .5rem;
+      padding: .35rem .9rem;
+      font-size: .9rem;
+    }
+    /* ====== EXAM WEIGHT BAR ====== */
+    .weight-section {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin: -1.5rem auto 2rem;
+      max-width: 860px;
+      position: relative;
+      z-index: 10;
+    }
+    .weight-section h3 { text-align: center; margin-bottom: 1rem; color: #334155; }
+    .weight-bars { display: flex; flex-direction: column; gap: .7rem; }
+    .weight-row { display: flex; align-items: center; gap: .8rem; }
+    .weight-label { min-width: 170px; font-size: .88rem; font-weight: 600; }
+    .weight-track {
+      flex: 1; height: 22px; background: #e2e8f0;
+      border-radius: 1rem; overflow: hidden;
+    }
+    .weight-fill {
+      height: 100%; border-radius: 1rem;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-left: .5rem; font-size: .75rem; color: #fff; font-weight: 700;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    .weight-count {
+      min-width: 70px; font-size: .82rem; color: #64748b; text-align: center;
+    }
+    /* ====== CONTAINER ====== */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1rem 3rem; }
+    /* ====== SECTION HEADERS ====== */
+    .section-header {
+      display: flex; align-items: center; gap: .8rem;
+      padding: 1rem 1.4rem; border-radius: var(--radius);
+      margin-bottom: 1rem; cursor: pointer;
+      user-select: none;
+      transition: filter .2s;
+    }
+    .section-header:hover { filter: brightness(1.05); }
+    .section-header .icon { font-size: 1.6rem; }
+    .section-header h2 { color: #fff; font-size: 1.25rem; flex: 1; }
+    .section-header .toggle-icon {
+      color: #fff; font-size: 1.4rem; transition: transform .3s;
+    }
+    .section-header.open .toggle-icon { transform: rotate(90deg); }
+    .geo-bg   { background: linear-gradient(135deg, var(--geo), #1d4ed8); }
+    .num-bg   { background: linear-gradient(135deg, var(--num), #15803d); }
+    .prob-bg  { background: linear-gradient(135deg, var(--prob), #c2410c); }
+    .alg-bg   { background: linear-gradient(135deg, var(--alg), #6d28d9); }
+    .gold-bg  { background: linear-gradient(135deg, var(--gold), #b45309); }
+    .review-bg{ background: linear-gradient(135deg, #0891b2, #0e7490); }
+    /* ====== CARDS ====== */
+    .card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 1.4rem 1.6rem; margin-bottom: 1.2rem;
+    }
+    .card h3 {
+      font-size: 1.05rem; margin-bottom: .8rem;
+      padding-bottom: .4rem; border-bottom: 2px solid #e2e8f0;
+    }
+    /* ====== ACCORDION BODY ====== */
+    .accordion-body {
+      display: none; animation: fadeIn .3s ease;
+    }
+    .accordion-body.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    /* ====== RULES GRID ====== */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem;
+    }
+    .rule-card {
+      border-radius: .8rem; padding: 1rem 1.2rem;
+      border-right: 5px solid;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .rule-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+    .rule-card.geo   { border-color: var(--geo); }
+    .rule-card.num   { border-color: var(--num); }
+    .rule-card.prob  { border-color: var(--prob); }
+    .rule-card.alg   { border-color: var(--alg); }
+    /* ====== KEYWORD STYLE ====== */
+    .kw {
+      color: #1d4ed8;
+      font-weight: 700;
+      background: #dbeafe;
+      padding: 0 .25em;
+      border-radius: .25em;
+      font-size: .93em;
+    }
+    /* ====== TABLE ====== */
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: .8rem 0; }
+    th {
+      background: #f1f5f9;
+      padding: .6rem .8rem;
+      text-align: right;
+      font-weight: 700;
+      border: 1px solid #e2e8f0;
+    }
+    td {
+      padding: .55rem .8rem;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #f8fafc; }
+    /* ====== ANGLE TYPE TABLE ====== */
+    .angle-type { display: flex; align-items: flex-start; gap: .5rem; margin-bottom: .6rem; }
+    .angle-badge {
+      min-width: 120px; padding: .3rem .6rem;
+      border-radius: .4rem; font-size: .82rem; font-weight: 700;
+      text-align: center; color: #fff;
+    }
+    .eq-badge  { background: #2563eb; }
+    .comp-badge { background: #16a34a; }
+    /* ====== STEP CARDS ====== */
+    .steps { counter-reset: step; display: flex; flex-direction: column; gap: .7rem; }
+    .step {
+      display: flex; gap: .9rem; align-items: flex-start;
+      background: #f8fafc; border-radius: .7rem; padding: .8rem 1rem;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      min-width: 2rem; height: 2rem;
+      background: var(--geo); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: .95rem; flex-shrink: 0;
+    }
+    .step.green::before { background: var(--num); }
+    .step.orange::before { background: var(--prob); }
+    .step.purple::before { background: var(--alg); }
+    /* ====== EXAMPLE BOX ====== */
+    .example {
+      background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+      border: 1.5px solid #bfdbfe;
+      border-radius: .7rem; padding: 1rem 1.2rem; margin: .8rem 0;
+    }
+    .example-label {
+      font-weight: 800; color: var(--geo); margin-bottom: .4rem; font-size: .9rem;
+    }
+    .answer {
+      background: #dcfce7; border: 1.5px solid #86efac;
+      border-radius: .6rem; padding: .6rem 1rem; margin-top: .6rem;
+      font-weight: 700; color: #15803d;
+    }
+    /* ====== WARN BOX ====== */
+    .warn {
+      background: #fff7ed; border: 1.5px solid #fed7aa;
+      border-radius: .7rem; padding: .8rem 1.2rem; margin: .8rem 0;
+    }
+    .warn::before { content: '⚠️ '; font-size: 1rem; }
+    /* ====== TIP BOX ====== */
+    .tip {
+      background: #f0f9ff; border: 1.5px solid #bae6fd;
+      border-radius: .7rem; padding: .8rem 1.2rem; margin: .8rem 0;
+    }
+    .tip::before { content: '💡 '; font-size: 1rem; }
+    /* ====== SOLUTION CARDS ====== */
+    .sol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .sol-card {
+      background: #fff; border-radius: .8rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      overflow: hidden;
+    }
+    .sol-header {
+      padding: .5rem 1rem; font-weight: 800; font-size: .92rem; color: #fff;
+    }
+    .sol-body { padding: .8rem 1rem; font-size: .9rem; }
+    .sol-answer {
+      margin-top: .5rem; padding: .4rem .8rem;
+      background: #dcfce7; border-radius: .4rem;
+      color: #166534; font-weight: 700; font-size: .88rem;
+    }
+    /* ====== QUIZ ====== */
+    .quiz-item {
+      background: #fff; border-radius: .8rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      margin-bottom: .9rem; overflow: hidden;
+    }
+    .quiz-q {
+      padding: .8rem 1.2rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: flex-start; gap: .7rem;
+      transition: background .2s;
+    }
+    .quiz-q:hover { background: #f8fafc; }
+    .quiz-num {
+      min-width: 1.8rem; height: 1.8rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; font-size: .82rem; flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .quiz-ans {
+      display: none; padding: .7rem 1.2rem 1rem 1.2rem;
+      background: #f0fdf4; border-top: 1px solid #dcfce7;
+      color: #166534; font-weight: 600; font-size: .92rem;
+    }
+    .quiz-ans.visible { display: block; }
+    .show-btn {
+      border: none; background: none; font-size: .8rem; font-weight: 700;
+      color: #64748b; cursor: pointer; margin-right: auto;
+      padding: .1rem .5rem; border-radius: .3rem;
+    }
+    .show-btn:hover { background: #e2e8f0; }
+    /* ====== REVIEW SHEET ====== */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: .9rem;
+    }
+    .review-card {
+      border-radius: .8rem; padding: 1rem;
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      border-top: 4px solid;
+    }
+    .review-card.geo   { border-color: var(--geo); }
+    .review-card.num   { border-color: var(--num); }
+    .review-card.prob  { border-color: var(--prob); }
+    .review-card h4 { font-size: .95rem; margin-bottom: .6rem; }
+    .review-card ul { padding-right: 1.2rem; font-size: .88rem; }
+    .review-card li { margin-bottom: .4rem; }
+    /* ====== SHAPE DIAGRAM ====== */
+    .shapes-row {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+      margin: 1rem 0;
+    }
+    .shape-box {
+      background: #fff; border-radius: .8rem;
+      padding: .9rem 1.1rem; text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      min-width: 140px;
+    }
+    .shape-box svg { display: block; margin: 0 auto .5rem; }
+    .shape-name { font-weight: 800; font-size: .9rem; color: #334155; }
+    .shape-tr   { font-size: .78rem; color: #64748b; }
+    /* ====== FORMULA BOX ====== */
+    .formula {
+      display: inline-block;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #fff; font-weight: 800;
+      border-radius: .5rem; padding: .4rem 1rem;
+      font-size: 1.1rem; margin: .5rem 0;
+    }
+    /* ====== NAV BAR ====== */
+    .sticky-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,.97);
+      backdrop-filter: blur(8px);
+      padding: .5rem 1rem;
+      display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center;
+    }
+    .sticky-nav a {
+      color: #cbd5e1; text-decoration: none;
+      padding: .3rem .75rem; border-radius: .4rem;
+      font-size: .82rem; font-weight: 600;
+      transition: background .2s, color .2s;
+    }
+    .sticky-nav a:hover { background: rgba(255,255,255,.1); color: #fff; }
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 600px) {
+      .weight-label { min-width: 120px; font-size: .8rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .container { padding: 0 .7rem 2rem; }
+    }
+    /* ====== TOP TOPIC TAGS ====== */
+    .topic-tags {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.5rem;
+    }
+    .tag {
+      border-radius: 2rem; padding: .35rem 1rem;
+      font-size: .82rem; font-weight: 700; color: #fff;
+    }
+    /* separator */
+    .sep { height: 2rem; }
+  </style>
+</head>
+<body>
+
+<!-- ============================= HERO ============================= -->
+<div class="hero">
+  <div class="hero-badge">📚 رياضيات | Matematik – الصف السادس</div>
+  <h1>مراجعة شاملة للامتحان الأول</h1>
+  <p>الفصل الثاني · شرح مفصّل · قوانين ذهبية · حلول التدريب الرسمي · أسئلة إضافية تفاعلية</p>
+  <div class="hero-meta">
+    <span>📐 الأشكال الهندسية (Geometrik Şekiller) — 5 أسئلة</span>
+    <span>🔢 الأعداد والكميات (Sayılar ve Nicelikler) — 1 سؤال</span>
+    <span>🎲 البيانات والاحتمال (Veri ve Olasılık) — 1 سؤال</span>
+    <span>🔡 العبارات الجبرية (Cebirsel İfadeler) — 1 سؤال</span>
+  </div>
+</div>
+
+<!-- ============================= STICKY NAV ============================= -->
+<nav class="sticky-nav">
+  <a href="#weight">توزيع الامتحان</a>
+  <a href="#golden">القوانين الذهبية</a>
+  <a href="#geometry">الهندسة</a>
+  <a href="#numbers">الأعداد والكسور</a>
+  <a href="#probability">الاحتمال</a>
+  <a href="#algebra">الجبر</a>
+  <a href="#solutions">بنك الحلول</a>
+  <a href="#extra">أسئلة إضافية</a>
+  <a href="#review">ورقة المراجعة</a>
+</nav>
+
+<div class="container">
+
+  <!-- ============================= EXAM WEIGHT ============================= -->
+  <div id="weight" class="weight-section">
+    <h3>📊 توزيع درجات الامتحان (Sınav Konu Dağılımı)</h3>
+    <div class="weight-bars">
+      <div class="weight-row">
+        <span class="weight-label">🔷 الأشكال الهندسية</span>
+        <div class="weight-track">
+          <div class="weight-fill" style="width:62.5%; background: linear-gradient(90deg,#2563eb,#1d4ed8);">62.5%</div>
+        </div>
+        <span class="weight-count">5 أسئلة</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">🔢 الأعداد والكميات</span>
+        <div class="weight-track">
+          <div class="weight-fill" style="width:12.5%; background: linear-gradient(90deg,#16a34a,#15803d);">12.5%</div>
+        </div>
+        <span class="weight-count">1 سؤال</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">🎲 البيانات والاحتمال</span>
+        <div class="weight-track">
+          <div class="weight-fill" style="width:12.5%; background: linear-gradient(90deg,#ea580c,#c2410c);">12.5%</div>
+        </div>
+        <span class="weight-count">1 سؤال</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">🔡 العبارات الجبرية</span>
+        <div class="weight-track">
+          <div class="weight-fill" style="width:12.5%; background: linear-gradient(90deg,#7c3aed,#6d28d9);">12.5%</div>
+        </div>
+        <span class="weight-count">1 سؤال</span>
+      </div>
+    </div>
+    <div class="tip" style="margin-top:1rem">
+      الهندسة (Geometri) وحدها تمثّل أكثر من نصف الامتحان — أعطِها أكبر وقت في مذاكرتك!
+    </div>
+  </div>
+
+  <!-- ============================= GOLDEN RULES ============================= -->
+  <div id="golden">
+    <div class="section-header gold-bg open" onclick="toggle(this)">
+      <span class="icon">⭐</span>
+      <h2>القوانين الذهبية السريعة – أهم ما يجب حفظه</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+      <div class="rules-grid">
+        <div class="rule-card geo">
+          <strong>الزاويتان المتناظرتان (Denk Açılar)</strong><br/>
+          تقعان في الموضع نفسه على المستقيمين المتوازيين (Paralel Doğrular) — <em>متساويتان</em>.
+        </div>
+        <div class="rule-card geo">
+          <strong>الزاويتان المتبادلتان داخلياً (İç Ters Açılar)</strong><br/>
+          تقعان بين الخطين المتوازيين على جهتين مختلفتين من القاطع (Kesen Doğru) — <em>متساويتان</em>.
+        </div>
+        <div class="rule-card geo">
+          <strong>الداخليتان على جهة واحدة (İç Aynı Yönlü Açılar)</strong><br/>
+          تقعان بين الخطين المتوازيين على الجهة ذاتها من القاطع — <em>مجموعهما 180°</em>.
+        </div>
+        <div class="rule-card geo">
+          <strong>المتقابلتان بالرأس (Zıt Açılar)</strong><br/>
+          تنتجان عند تقاطع خطين — <em>متساويتان</em>.
+        </div>
+        <div class="rule-card geo">
+          <strong>المتجاورتان على خط مستقيم (Komşu Açılar)</strong><br/>
+          تشكّلان زاوية مستقيمة — <em>مجموعهما 180°</em>.
+        </div>
+        <div class="rule-card geo">
+          <strong>مجموع زوايا المثلث (Üçgen) والشكل الرباعي (Dörtgen)</strong><br/>
+          المثلث = <strong>180°</strong> &nbsp;|&nbsp; أي شكل رباعي = <strong>360°</strong>
+        </div>
+        <div class="rule-card geo">
+          <strong>متوازي الأضلاع (Paralelkenar)</strong><br/>
+          الأضلاع (Kenarlar) المتقابلة متوازية ومتساوية. الزوايا المتقابلة متساوية والمتجاورة متكاملة. القطران (Köşegenler) ينصف كل منهما الآخر.
+        </div>
+        <div class="rule-card geo">
+          <strong>المستطيل (Dikdörtgen)</strong><br/>
+          كل خواص متوازي الأضلاع + كل الزوايا 90° + القطران (Köşegenler) متساويان.
+        </div>
+        <div class="rule-card geo">
+          <strong>المعين (Eşkenar Dörtgen)</strong><br/>
+          كل الأضلاع متساوية. القطران متعامدان وينصف كل منهما الآخر. كل قطر (Köşegen) ينصف زاويتين متقابلتين.
+        </div>
+        <div class="rule-card geo">
+          <strong>المربع (Kare)</strong><br/>
+          يجمع خواص المستطيل (Dikdörtgen) والمعين (Eşkenar Dörtgen) معاً. الزاوية بين القطر والضلع = 45°.
+        </div>
+        <div class="rule-card prob">
+          <strong>الاحتمال التجريبي (Deneysel Olasılık)</strong><br/>
+          <div class="formula">الاحتمال = عدد مرات الحدث ÷ عدد التجارب الكلي</div>
+        </div>
+        <div class="rule-card num">
+          <strong>النسبة المئوية (Yüzde)</strong><br/>
+          تعني "من 100". يمكن التحويل بينها وبين الكسر (Kesir) والعشري (Ondalık Sayı) بسهولة.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= GEOMETRY ============================= -->
+  <div id="geometry">
+    <div class="section-header geo-bg open" onclick="toggle(this)">
+      <span class="icon">📐</span>
+      <h2>الشرح التفصيلي – الأشكال الهندسية (Geometrik Şekiller)</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+
+      <!-- 5.1 Parallel lines -->
+      <div class="card">
+        <h3>5.1 المستقيمان المتوازيان والقاطع والزوايا (Paralel Doğrular ve Açılar)</h3>
+        <p>عندما يقطع مستقيمٌ <span class="kw">خطَّين متوازيين (paralel doğrular)</span>، تتولّد مجموعة من <span class="kw">الزوايا (açılar)</span>. النجاح في هذا الدرس يعتمد على أمرين: معرفة اسم العلاقة بين الزاويتين، ثم تطبيق القاعدة المناسبة.</p>
+        <br/>
+        <table>
+          <thead>
+            <tr><th>نوع الزاويتين</th><th>الوصف</th><th>العلاقة</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>متناظرتان (Denk Açılar)</strong></td>
+              <td>تقعان في الموضع نفسه تقريباً على الخطين المتوازيين</td>
+              <td><span style="color:var(--geo);font-weight:700">متساويتان</span></td>
+            </tr>
+            <tr>
+              <td><strong>متبادلتان داخلياً (İç Ters Açılar)</strong></td>
+              <td>تقعان بين الخطين المتوازيين على جهتين مختلفتين من <span class="kw">القاطع (kesen doğru)</span></td>
+              <td><span style="color:var(--geo);font-weight:700">متساويتان</span></td>
+            </tr>
+            <tr>
+              <td><strong>داخليتان على جهة واحدة (İç Aynı Yönlü Açılar)</strong></td>
+              <td>تقعان بين الخطين على الجهة ذاتها من القاطع</td>
+              <td><span style="color:var(--num);font-weight:700">مجموعهما 180°</span></td>
+            </tr>
+            <tr>
+              <td><strong>متقابلتان بالرأس (Zıt Açılar)</strong></td>
+              <td>تنتجان عن تقاطع خطين</td>
+              <td><span style="color:var(--geo);font-weight:700">متساويتان</span></td>
+            </tr>
+            <tr>
+              <td><strong>متجاورتان على خط مستقيم (Komşu Açılar)</strong></td>
+              <td>تشكّلان زاوية مستقيمة معاً</td>
+              <td><span style="color:var(--num);font-weight:700">مجموعهما 180°</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <strong>خطوات الحل الذكية:</strong>
+          <ol style="padding-right:1.2rem;margin-top:.4rem">
+            <li>حدّد أولاً هل الخطّان متوازيان أم لا.</li>
+            <li>ابحث عن زاوية لها علاقة مباشرة بالزاوية المعطاة: متناظرة أو متبادلة أو متكاملة.</li>
+            <li>اكتب العلاقة بالكلمات قبل الحساب: مثلاً "متبادلتان داخلياً" أو "على خط مستقيم".</li>
+            <li>إذا كانت هناك عدة زوايا حول نقطة واحدة، اجمعها أو اطرحها من 180° أو 360° بحسب الشكل.</li>
+          </ol>
+        </div>
+
+        <div class="example">
+          <div class="example-label">مثال سريع 1:</div>
+          إذا كانت <span class="kw">زاوية (açı)</span> تساوي 70° على أحد المستقيمين المتوازيين،
+          فإن <span class="kw">الزاوية المتناظرة (denk açı)</span> لها تساوي 70° أيضاً،
+          والزاوية المجاورة لها على الخط المستقيم تساوي 110°.
+        </div>
+
+        <div class="example">
+          <div class="example-label">مثال سريع 2 (سؤال MEBI رقم 16):</div>
+          إذا ظهر في السؤال قياسان 70° و60° على <span class="kw">قاطعين (iki kesen doğru)</span> مختلفين،
+          يمكن سحب <span class="kw">مستقيم مساعد موازٍ (yardımcı paralel doğru)</span> عند نقطة التقاطع،
+          ثم نقل القياسين إليه بالزوايا المتناظرة.
+          <div class="answer">الزاوية المطلوبة = 70° + 60° = 130°</div>
+        </div>
+
+        <div class="warn">
+          <strong>خطأ شائع:</strong> الخلط بين "التساوي" و"التكامل". ليست كل زاويتين حول الشكل متساويتين.
+          إذا كانتا على خط مستقيم فالمطلوب غالباً مجموعهما 180°،
+          أما إذا كانتا <span class="kw">متناظرتين (denk)</span> أو <span class="kw">متبادلتين داخلياً (iç ters)</span> فهما متساويتان.
+        </div>
+      </div>
+
+      <!-- 5.2 Shapes from parallel lines -->
+      <div class="card">
+        <h3>5.2 الأشكال الناتجة من مستقيمين متوازيين وقاطعين (İki Paralel Doğru ve Kesenlerin Oluşturduğu Şekiller)</h3>
+        <p>في بعض المسائل لا يُسأل الطفل عن <span class="kw">زاوية (açı)</span> مباشرة، بل عن شكل كامل تولّد من مستقيمين متوازيين وقاطعين. نحتاج هنا إلى تتبّع الزوايا واحدةً واحدةً ثم تركيب النتيجة.</p>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 2:</div>
+          بعد معرفة أن <span class="kw">الزاوية المقابلة داخلياً (iç ters açı)</span> تساوي 75°، وأن زاوية أخرى تساوي 70°،
+          نستخدم <span class="kw">الزاوية المستقيمة (düz açı)</span> 180° لنستخرج الزاوية الثالثة.
+          <div class="answer">m(BCD) = 75°، و m(DBC) = 35°، و m(DBE) = 70°</div>
+        </div>
+
+        <div class="tip">
+          <strong>قاعدة عملية في الأسئلة المركّبة:</strong>
+          <ul style="padding-right:1.2rem;margin-top:.4rem">
+            <li>لا تبدأ بالزاوية الأصعب.</li>
+            <li>ابدأ بالزوايا التي تُنقل مباشرة بالتوازي، ثم احسب الباقي بالتكامل أو بالزوايا حول النقطة.</li>
+            <li>ارسم سهماً صغيراً أو علامة مساواة بين <span class="kw">الزوايا المتناظرة (denk açılar)</span> حتى لا تتشتّت.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5.3 Quadrilateral angles -->
+      <div class="card">
+        <h3>5.3 مسائل زوايا شبه المنحرف ومتوازي الأضلاع والمعين والمربع والمستطيل</h3>
+
+        <!-- Visual shapes row -->
+        <div class="shapes-row">
+          <div class="shape-box">
+            <svg width="70" height="50"><polygon points="15,40 55,40 45,10 25,10" fill="none" stroke="#2563eb" stroke-width="2"/></svg>
+            <div class="shape-name">شبه المنحرف</div>
+            <div class="shape-tr">(Yamuk)</div>
+          </div>
+          <div class="shape-box">
+            <svg width="70" height="50"><polygon points="5,40 35,40 65,10 35,10" fill="none" stroke="#2563eb" stroke-width="2"/></svg>
+            <div class="shape-name">متوازي الأضلاع</div>
+            <div class="shape-tr">(Paralelkenar)</div>
+          </div>
+          <div class="shape-box">
+            <svg width="70" height="50"><polygon points="35,5 65,25 35,45 5,25" fill="none" stroke="#2563eb" stroke-width="2"/></svg>
+            <div class="shape-name">المعين</div>
+            <div class="shape-tr">(Eşkenar Dörtgen)</div>
+          </div>
+          <div class="shape-box">
+            <svg width="70" height="50"><rect x="5" y="10" width="60" height="30" fill="none" stroke="#2563eb" stroke-width="2"/></svg>
+            <div class="shape-name">المستطيل</div>
+            <div class="shape-tr">(Dikdörtgen)</div>
+          </div>
+          <div class="shape-box">
+            <svg width="70" height="50"><rect x="10" y="5" width="50" height="40" fill="none" stroke="#2563eb" stroke-width="2"/></svg>
+            <div class="shape-name">المربع</div>
+            <div class="shape-tr">(Kare)</div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>الشكل (Şekil)</th>
+              <th>أهم خاصية في الزوايا (Açı Özellikleri)</th>
+              <th>أهم خاصية في الأقطار (Köşegen Özellikleri)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>شبه المنحرف (Yamuk)</strong></td>
+              <td>الزاويتان المتجاورتان على كل <span class="kw">ساق (yan kenar)</span> مجموعهما 180° إذا كانت <span class="kw">القاعدتان (tabanlar)</span> متوازيتين</td>
+              <td>لا توجد قاعدة عامة موحدة للأقطار في كل أنواع شبه المنحرف</td>
+            </tr>
+            <tr>
+              <td><strong>متوازي الأضلاع (Paralelkenar)</strong></td>
+              <td>الزوايا المتقابلة متساوية، والمتجاورة متكاملة (مجموعهما 180°)</td>
+              <td><span class="kw">القطران (köşegenler)</span> ينصف كل منهما الآخر</td>
+            </tr>
+            <tr>
+              <td><strong>المعين (Eşkenar Dörtgen)</strong></td>
+              <td>ليس شرطاً أن تكون الزوايا 90°، لكن <span class="kw">الأقطار (köşegenler)</span> تنصف الزوايا المتقابلة</td>
+              <td>القطران متعامدان وينصف كل منهما الآخر</td>
+            </tr>
+            <tr>
+              <td><strong>المستطيل (Dikdörtgen)</strong></td>
+              <td>كل الزوايا 90°</td>
+              <td>القطران متساويان وينصف كل منهما الآخر</td>
+            </tr>
+            <tr>
+              <td><strong>المربع (Kare)</strong></td>
+              <td>كل الزوايا 90° وكل الأضلاع متساوية</td>
+              <td>يجتمع فيه: التساوي، التعامد، والتنصيف</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4 style="margin: 1rem 0 .6rem; color:#334155">أمثلة من التدريب الرسمي MEBI:</h4>
+
+        <div class="example">
+          <div class="example-label">سؤال 3 — المعين (Eşkenar Dörtgen):</div>
+          في <span class="kw">المعين (eşkenar dörtgen)</span>، <span class="kw">القطران (köşegenler)</span> ينصف كل منهما الآخر.
+          إذا كان نصف أحد القطرين 12 سم ونصف الآخر 5 سم:
+          <div class="answer">مجموع طولي القطرين = (12×2) + (5×2) = 24 + 10 = 34 سم</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال 4 — المربع (Kare):</div>
+          في <span class="kw">المربع (kare)</span>، <span class="kw">القطر (köşegen)</span> ينصف <span class="kw">الزاوية القائمة (dik açı)</span> إلى 45° و45°.
+          <div class="answer">الزاوية المطلوبة = 45°</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال 6 — شبه المنحرف (Yamuk):</div>
+          إذا كانت <span class="kw">زاوية (açı)</span> عند <span class="kw">القاعدة العليا (üst taban)</span> تساوي 125°،
+          فالزاوية المجاورة على <span class="kw">الساق (yan kenar)</span> نفسها = 180° − 125° = 55°،
+          وعلى الساق الأخرى = 180° − 45° = 135°.
+          <div class="answer">y = 55° و z = 135°</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال 7 — متوازي الأضلاع (Paralelkenar):</div>
+          إذا تكوّن <span class="kw">مثلث متساوي الأضلاع (eşkenar üçgen)</span> داخل <span class="kw">متوازي الأضلاع (paralelkenar)</span>،
+          فإن زواياه 60°. وبما أن الزوايا المتقابلة في متوازي الأضلاع متساوية:
+          <div class="answer">الزاوية المطلوبة = 60°</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال 8 — المعين (Eşkenar Dörtgen):</div>
+          في <span class="kw">المعين (eşkenar dörtgen)</span>، القطران متعامدان، وكل قطر ينصف الزاوية.
+          إذا ظهرت زاوية 64° ستنتج زاوية مكملة داخل <span class="kw">مثلث قائم (dik açılı üçgen)</span>:
+          <div class="answer">∠ACD = 26°</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال 9 — مثلث قائم متساوي الساقين:</div>
+          إذا كان لدينا <span class="kw">مثلث قائم متساوي الساقين (dik ikizkenar üçgen)</span> داخل شكل رباعي،
+          فزاويتاه الحادتان 45° و45°، ثم نكمل مجموع زوايا <span class="kw">المثلث (üçgen)</span> إلى 180°:
+          <div class="answer">الزاوية المطلوبة = 65°</div>
+        </div>
+      </div>
+
+      <!-- 5.4 Diagonals -->
+      <div class="card">
+        <h3>5.4 خصائص الأقطار (Köşegen Özellikleri)</h3>
+        <p>موضوع <span class="kw">الأقطار (köşegenler)</span> يطلب من الطفل ملاحظة ما إذا كانت الأقطار: متساوية؟ متعامدة؟ ينصف بعضها بعضاً؟ تنصف الزوايا أم لا؟ كثير من الأسئلة تختبئ في رسم واحد لكن مفتاحها الحقيقي هو القطر.</p>
+
+        <div class="tip">
+          <strong>طريقة التفكير في أسئلة الأقطار:</strong>
+          <ol style="padding-right:1.2rem;margin-top:.4rem">
+            <li>اسأل نفسك أولاً: ما الشكل؟ <span class="kw">مربع (kare)</span> أم <span class="kw">معين (eşkenar dörtgen)</span> أم <span class="kw">مستطيل (dikdörtgen)</span> أم <span class="kw">متوازي أضلاع (paralelkenar)</span>؟</li>
+            <li>اكتب تحت الرسم مباشرة: القطران متساويان / متعامدان / ينصف كل منهما الآخر / ينصفان الزوايا.</li>
+            <li>إذا كانت <span class="kw">نقطة التقاطع (kesişim noktası)</span> في المنتصف، فتذكّر أن طول نصف القطر يساوي نصفه الآخر.</li>
+            <li>إذا كان القطر في المربع أو المعين، فغالباً سيولّد زوايا 45° أو يقسم زاوية معطاة إلى جزأين متساويين.</li>
+          </ol>
+        </div>
+
+        <p>في ملف MEBI يظهر هذا بوضوح في الأسئلة 3 و4 و8 و18. والسؤال 18 بالذات مهم لأنه يجمع بين خصائص أقطار <span class="kw">المربع (kare)</span> وخصائص <span class="kw">المضلع المنتظم (düzgün çokgen)</span> — وتحديداً <span class="kw">الخماسي المنتظم (düzgün beşgen)</span> — معاً.</p>
+      </div>
+
+      <!-- 5.5 Pentagon inside square -->
+      <div class="card" style="border: 2px solid var(--gold);">
+        <h3 style="color:var(--gold)">5.5 سؤال خاص: الخماسي المنتظم داخل المربع — كيف نفكّر فيه؟</h3>
+        <p>هذا السؤال يبدو صعباً في النظرة الأولى، لكنه مبني على أفكار معروفة: <span class="kw">زاوية الخماسي المنتظم الداخلية (düzgün beşgenin iç açısı)</span> = 108°، وقطر <span class="kw">المربع (kare)</span> ينصف <span class="kw">الزاوية القائمة (dik açı)</span> إلى 45° و45°، ثم نستخدم مجموع زوايا <span class="kw">المثلث (üçgen)</span> والتقابل بالرأس.</p>
+
+        <div class="steps">
+          <div class="step">
+            اكتب أن <span class="kw">الزاوية الداخلية في الخماسي المنتظم (düzgün beşgen iç açısı)</span> = <strong>108°</strong>
+          </div>
+          <div class="step">
+            استخرج <span class="kw">الزاوية المجاورة (komşu açı)</span> لها على خط مستقيم: 180° − 108° = <strong>72°</strong>
+          </div>
+          <div class="step">
+            كوّن <span class="kw">مثلثاً (üçgen)</span> واستعمل مجموع زواياه للوصول إلى زاوية <strong>18°</strong>
+          </div>
+          <div class="step">
+            استعمل استقامة نقاط على ضلع المربع مع <span class="kw">زاوية الخماسي (beşgen açısı)</span> 108° للوصول إلى <strong>54°</strong>
+          </div>
+          <div class="step">
+            لأن <span class="kw">قطر المربع (kare köşegeni)</span> ينصف 90°، فإنه يعطي <strong>45°</strong>
+          </div>
+          <div class="step">
+            أكمل في المثلث الأخير: 180° − (54° + 45°) = <strong>81°</strong>
+          </div>
+        </div>
+
+        <div class="answer" style="margin-top:1rem; font-size:1.1rem">
+          ✅ جواب السؤال 18 في التدريب الرسمي = <strong>81°</strong>
+        </div>
+      </div>
+
+      <!-- 5.6 Q5 hexagon -->
+      <div class="card">
+        <h3>5.6 سؤال 5 — الأقطار في السداسي (Altıgen)</h3>
+        <p>الفكرة: عدّ <span class="kw">الأقطار (köşegenler)</span> من رأس واحد في <span class="kw">السداسي (altıgen)</span>، ثم عدّ المناطق المثلثية الناتجة.</p>
+        <div class="answer">من الرأس A يمكن رسم 3 أقطار، ومن B تقسّم الأقطار السداسي إلى 4 مناطق مثلثية.</div>
+      </div>
+
+      <!-- 5.7 Q17 -->
+      <div class="card">
+        <h3>5.7 سؤال 17 — شبه منحرف متساوي الساقين (İkizkenar Yamuk)</h3>
+        <p>الفكرة: تكوين <span class="kw">متوازي أضلاع مساعد (yardımcı paralelkenar)</span>، ثم إظهار أن الشكل <span class="kw">شبه منحرف متساوي الساقين (ikizkenar yamuk)</span>.</p>
+        <div class="answer">زوايا ABCD هي: 80°، 80°، 100°، 100°</div>
+      </div>
+
+    </div><!-- end accordion geo -->
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= NUMBERS ============================= -->
+  <div id="numbers">
+    <div class="section-header num-bg open" onclick="toggle(this)">
+      <span class="icon">🔢</span>
+      <h2>الشرح التفصيلي – الأعداد والكميات (Sayılar ve Nicelikler)</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+
+      <div class="card">
+        <h3>6.1 عمليات على الكسور (Kesirlerle İşlemler)</h3>
+        <table>
+          <thead><tr><th>العملية</th><th>كيفية التنفيذ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>الجمع والطرح (Toplama / Çıkarma)</strong></td>
+              <td>لا نجمع أو نطرح <span class="kw">المقامات (paydalar)</span> مباشرة. يجب أولاً توحيد المقامات ثم جمع/طرح <span class="kw">البسوط (paylar)</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>الضرب (Çarpma)</strong></td>
+              <td>نضرب <span class="kw">البسط (pay)</span> في البسط و<span class="kw">المقام (payda)</span> في المقام، ثم نختصر إن أمكن.</td>
+            </tr>
+            <tr>
+              <td><strong>القسمة (Bölme)</strong></td>
+              <td>نحوّل القسمة إلى ضرب في مقلوب الكسر الثاني.</td>
+            </tr>
+            <tr>
+              <td><strong>المقارنة (Karşılaştırma)</strong></td>
+              <td>الأفضل توحيد المقامات أو التحويل إلى <span class="kw">عشري (ondalık)</span> أو <span class="kw">نسبة مئوية (yüzde)</span> عند الحاجة.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 11 — مسألة الخزان:</div>
+          الخزان كان ممتلئاً بمقدار <span class="kw">7/15 (kesir)</span>، وبعد إضافة 2000 لتر أصبح نصفه فارغاً؛ أي نصفه ممتلئاً = <span class="kw">1/2 (kesir)</span>.
+          نقارن بين 7/15 و1/2 بتوحيد المقامات:
+          1/2 = 15/30 و 7/15 = 14/30 → الفرق = 1/30 من سعة الخزان.
+          إذا كان 1/30 = 2000 لتر، فالسعة الكاملة = 60,000 لتر.
+          <div class="answer">الكمية الابتدائية = 60,000 × 7/15 = 28,000 لتر</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>6.2 الكسر – العشري – النسبة المئوية (Kesir – Ondalık Sayı – Yüzde)</h3>
+        <div class="rules-grid">
+          <div class="rule-card num">
+            <strong>كسر → عشري (Kesir → Ondalık)</strong><br/>
+            نقسم <span class="kw">البسط (pay)</span> على <span class="kw">المقام (payda)</span>.
+          </div>
+          <div class="rule-card num">
+            <strong>عشري → نسبة مئوية (Ondalık → Yüzde)</strong><br/>
+            نضرب في 100 ثم نضيف %.
+          </div>
+          <div class="rule-card num">
+            <strong>نسبة مئوية → عشري (Yüzde → Ondalık)</strong><br/>
+            نقسم على 100.
+          </div>
+          <div class="rule-card num">
+            <strong>نسبة مئوية → كسر (Yüzde → Kesir)</strong><br/>
+            نكتبها على 100 ثم نختصر.
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 12 — مسألة Hakan والوزن:</div>
+          خسر Hakan <span class="kw">نسبة 20% (yüzde 20)</span> من 120 كغ.
+          مقدار النقص = 120 × 20/100 = 24 كغ. يصبح وزنه 96 كغ.
+          <div class="answer">للوصول إلى 85 كغ يحتاج أن يخسر 11 كغ أخرى.</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 13 — مسألة الحائط:</div>
+          نحوّل 3.5 متر إلى <span class="kw">كسر (kesir)</span> 7/2، ثم نحوّل 1 3/4 و6/5 إلى كسور غير فعلية، ونجمع الفراغين، ثم نطرح الناتج من طول الحائط.
+          <div class="answer">طول الضلع المطلوب = 11/20 متر = 0.55 متر</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>6.3 كيف نحل المسألة الحياتية متعددة الخطوات؟ (Çok Adımlı Problem Çözme)</h3>
+        <div class="steps">
+          <div class="step green">
+            <div><strong>افهم المطلوب:</strong> هل يريد كمية ابتدائية؟ نهائية؟ فرقاً؟ نسبة؟ طولاً؟</div>
+          </div>
+          <div class="step green">
+            <div><strong>اكتب المعطيات</strong> تحت بعضها بوحدة واحدة واضحة.</div>
+          </div>
+          <div class="step green">
+            <div><strong>رتّب العمليات بالترتيب الصحيح:</strong> أحياناً يجب إيجاد الكل أولاً ثم الجزء، أو إيجاد النقص أولاً ثم الوزن الجديد.</div>
+          </div>
+          <div class="step green">
+            <div><strong>افحص معقولية النتيجة في النهاية:</strong> هل هي أكبر من الكل؟ هل الوحدة صحيحة؟ هل النسبة منطقية؟</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end num accordion -->
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= PROBABILITY ============================= -->
+  <div id="probability">
+    <div class="section-header prob-bg open" onclick="toggle(this)">
+      <span class="icon">🎲</span>
+      <h2>الشرح التفصيلي – البيانات والاحتمال (Veri ve Deneysel Olasılık)</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+      <div class="card">
+        <h3>القانون الأساسي (Temel Formül)</h3>
+        <p>المطلوب في هذا الجزء هو <span class="kw">الاحتمال التجريبي (deneysel olasılık)</span>، وليس الاحتمال النظري فقط. أي أننا نعتمد على ما حدث فعلياً في التجربة أو في البيانات المعطاة.</p>
+        <br/>
+        <div style="text-align:center; margin:1rem 0">
+          <div class="formula">الاحتمال التجريبي = عدد مرات حدوث الحدث ÷ عدد مرات إجراء التجربة</div>
+        </div>
+        <ul style="padding-right:1.2rem; margin-top:.8rem">
+          <li>إذا طلب السؤال النتيجة كـ<span class="kw">نسبة مئوية (yüzde)</span>، نحوّل <span class="kw">الكسر (kesir)</span> أو <span class="kw">العدد العشري (ondalık sayı)</span> إلى %.</li>
+          <li>كلما كان عدد مرات حدوث الحدث أكبر، كان <span class="kw">احتمال الحدث (olay olasılığı)</span> أكبر.</li>
+        </ul>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 14 — مسألة الغسالات:</div>
+          بيعت 9 غسالات من الماركة A و6 من B و5 من C.
+          مجموع المبيعات = 20.
+          <span class="kw">الاحتمال التجريبي (deneysel olasılık)</span> أن تكون الغسالة من C: 5/20 = 1/4 = 25%.
+          <div class="answer">أكبر احتمال هو للماركة A (الأكثر مبيعاً).</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 15 — ألوان الكرات:</div>
+          من أصل 40 تجربة، ظهر الأحمر 20 مرة، والأبيض 12 مرة، والأسود 8 مرات.
+          <div class="answer">الأحمر: 50% | الأبيض: 30% | الأسود: 20%</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 21 — الشرائح في الوعاء:</div>
+          الشرائح: 5 جزر و4 موز و3 خيار. المجموع = 12.
+          <div class="answer">احتمال الحصول على الجزر = 5/12</div>
+        </div>
+
+        <div class="warn">
+          <strong>خطأ شائع:</strong> بعض الأطفال يقسمون على عدد الألوان أو عدد الأنواع بدلاً من عدد المحاولات الكلي أو عدد العناصر الكلي. هذا خطأ. <span class="kw">المقام (payda)</span> دائماً هو "كل التجارب" أو "كل العناصر الممكنة" بحسب السؤال.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= ALGEBRA ============================= -->
+  <div id="algebra">
+    <div class="section-header alg-bg open" onclick="toggle(this)">
+      <span class="icon">🔡</span>
+      <h2>الشرح التفصيلي – العبارات الجبرية (Cebirsel İfadeler)</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+      <div class="card">
+        <h3>المفاهيم الأساسية</h3>
+        <table>
+          <thead><tr><th>المفهوم</th><th>الشرح</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>المتغير (Değişken)</strong></td>
+              <td>حرف يرمز إلى كمية مجهولة مثل <strong>x</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>العبارة الجبرية (Cebirsel İfade)</strong></td>
+              <td>تعبير يضم أعداداً و<span class="kw">متغيرات (değişkenler)</span> وعمليات مثل 3x + 450 أو 500 − 5(x+10).</td>
+            </tr>
+            <tr>
+              <td><strong>التعويض (Yerine Koyma)</strong></td>
+              <td>استبدال <span class="kw">المتغير (değişken)</span> بقيمته العددية ثم إجراء العمليات بالترتيب الصحيح.</td>
+            </tr>
+            <tr>
+              <td><strong>الأقواس (Parantezler)</strong></td>
+              <td>إذا تكرّر المقدار نفسه عدة مرات نضعه بين قوسين ثم نضربه بعدد المرات.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 19 — مسألة Murat والدفاتر:</div>
+          ثمن الدفتر الواحد = (x + 10)، وعدد الدفاتر = 5.
+          إذن المبلغ المدفوع للدفاتر = 5(x + 10).
+          إذا أعطى Murat مبلغ 500 ليرة، فالباقي = 500 − 5(x + 10).
+          عند x = 30: ثمن الدفتر = 40 ليرة، ثمن 5 دفاتر = 200.
+          <div class="answer">العبارة = 500 − 5(x+10)، والباقي عند x=30 يكون 300 ليرة.</div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 20 — أجرة السيارة:</div>
+          أجرة السيارة = 450 ليرة ثابتة + 3 ليرات لكل كيلومتر.
+          إذا قطع الشخص x كم، فالمبلغ = 450 + 3x.
+          <div class="answer">عند x = 120: المبلغ = 450 + 360 = 810 ليرة.</div>
+        </div>
+
+        <div class="tip">
+          <strong>كيف يميّز الطفل العبارة الصحيحة؟</strong>
+          <ul style="padding-right:1.2rem;margin-top:.4rem">
+            <li>إذا كان هناك مبلغ ثابت دائم، فإنه يُضاف كما هو.</li>
+            <li>إذا كان هناك ثمن يتكرر بعدد معين من المرات، فنستخدم الضرب.</li>
+            <li>إذا كان المطلوب "الباقي"، فغالباً نطرح الإجمالي المصروف من المبلغ المعطى.</li>
+            <li>انتبه إلى موضع <span class="kw">الأقواس (parantezler)</span>؛ لأن 5(x+10) ليست مثل 5x + 10.</li>
+          </ul>
+        </div>
+
+        <div class="example">
+          <div class="example-label">سؤال MEBI رقم 10 — المربع المنقلب:</div>
+          <span class="kw">المربع (kare)</span> انقلب 11 مرة، أي قطع على الأرض 11 أطوال <span class="kw">ضلع (kenar)</span>، مع إضافة طول الموضع الأول.
+          <div class="answer">المسافة بين A و B = 12x + 13</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= SOLUTIONS BANK ============================= -->
+  <div id="solutions">
+    <div class="section-header gold-bg open" onclick="toggle(this)">
+      <span class="icon">📋</span>
+      <h2>بنك الحلول الرسمية لأسئلة MEBI (21 سؤالاً)</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+      <p style="margin-bottom:1rem; color:#64748b;">حاول أن تحل كل سؤال بنفسك أولاً ثم راجع الحل هنا!</p>
+      <div class="sol-grid">
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 1 — زوايا متوازيين وقاطع</div>
+          <div class="sol-body">
+            استعمال <span class="kw">الزوايا الناتجة (oluşan açılar)</span> عن مستقيمين متوازيين وقاطع، ثم الزاويتين المتجاورتين على استقامة واحدة.
+            <div class="sol-answer">الفرق بين الزاويتين = 40°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 2 — الشكل الناتج عن توازيين</div>
+          <div class="sol-body">
+            نقل <span class="kw">الزوايا (açılar)</span> بالتوازي ثم استعمال <span class="kw">الزاوية المستقيمة (düz açı)</span> 180° عند النقطة B.
+            <div class="sol-answer">m(BCD)=75°، m(DBC)=35°، m(DBE)=70°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 3 — المعين والأقطار</div>
+          <div class="sol-body">
+            في <span class="kw">المعين (eşkenar dörtgen)</span>، <span class="kw">القطران (köşegenler)</span> ينصف كل منهما الآخر. نصفا القطرين: 12 سم و5 سم.
+            <div class="sol-answer">مجموع القطرين = (12+12) + (5+5) = 34 سم</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 4 — قطر المربع والزاوية</div>
+          <div class="sol-body">
+            <span class="kw">قطر المربع (kare köşegeni)</span> ينصف <span class="kw">الزاوية القائمة (dik açı)</span> إلى 45° و45°.
+            <div class="sol-answer">الزاوية المطلوبة = 45°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 5 — أقطار السداسي</div>
+          <div class="sol-body">
+            عدّ <span class="kw">الأقطار (köşegenler)</span> من رأس واحد في <span class="kw">السداسي (altıgen)</span>، ثم عدّ المناطق المثلثية الناتجة.
+            <div class="sol-answer">من A: 3 أقطار. من B: السداسي ينقسم إلى 4 مناطق مثلثية.</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 6 — شبه المنحرف والزوايا</div>
+          <div class="sol-body">
+            <span class="kw">الزاويتان الداخليتان (iç açılar)</span> على جهة واحدة من <span class="kw">ساق شبه المنحرف (yamuk yan kenarı)</span> مجموعهما 180°.
+            <div class="sol-answer">y = 55° و z = 135°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 7 — مثلث داخل متوازي أضلاع</div>
+          <div class="sol-body">
+            إذا كان AE=DE=AD فالمثلث ADE <span class="kw">متساوي الأضلاع (eşkenar)</span> وزواياه 60°، ثم خواص <span class="kw">متوازي الأضلاع (paralelkenar)</span>.
+            <div class="sol-answer">الزاوية المطلوبة = 60°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 8 — قطر المعين وتنصيف الزاوية</div>
+          <div class="sol-body">
+            في <span class="kw">المعين (eşkenar dörtgen)</span>، القطران متعامدان، والقطر ينصف الزاوية 64°.
+            <div class="sol-answer">∠ACD = 26°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 9 — مثلث قائم متساوي الساقين</div>
+          <div class="sol-body">
+            داخل الشكل <span class="kw">مثلث قائم متساوي الساقين (dik ikizkenar üçgen)</span> فتتولد زاويتان 45°، ثم نكمل مجموع زوايا المثلث.
+            <div class="sol-answer">الزاوية المطلوبة = 65°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--alg)">السؤال 10 — المربع المنقلب</div>
+          <div class="sol-body">
+            <span class="kw">المربع (kare)</span> انقلب 11 مرة، أي قطع 11 أطوال <span class="kw">ضلع (kenar)</span>، مع إضافة طول الموضع الأول.
+            <div class="sol-answer">المسافة بين A و B = 12x + 13</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--num)">السؤال 11 — مسألة الخزان</div>
+          <div class="sol-body">
+            الفرق بين <span class="kw">7/15 (kesir)</span> و<span class="kw">1/2 (kesir)</span> يساوي 2000 لتر، ثم نستنتج السعة الكاملة.
+            <div class="sol-answer">الكمية الابتدائية = 28,000 لتر</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--num)">السؤال 12 — مسألة الوزن والنسبة</div>
+          <div class="sol-body">
+            احسب أولاً <span class="kw">20% (yüzde yirmi)</span> من 120، ثم اطرح من الوزن الأصلي، ثم قارن بالهدف 85.
+            <div class="sol-answer">يحتاج إلى خسارة 11 كغ أخرى.</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--num)">السؤال 13 — مسألة الحائط والفراغات</div>
+          <div class="sol-body">
+            اجمع الفراغين العلوي والسفلي ثم اطرحهما من ارتفاع الحائط 3.5 م.
+            <div class="sol-answer">طول الضلع المطلوب = 0.55 متر</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--prob)">السؤال 14 — الاحتمال التجريبي للغسالات</div>
+          <div class="sol-body">
+            <span class="kw">الاحتمال التجريبي (deneysel olasılık)</span> = المطلوب ÷ المجموع الكلي للمبيعات.
+            <div class="sol-answer">احتمال C = 1/4 = 25%، أكبر احتمال للماركة A.</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--prob)">السؤال 15 — احتمالات الألوان</div>
+          <div class="sol-body">
+            قسمة عدد مرات الظهور لكل لون على 40، ثم التحويل إلى <span class="kw">نسبة مئوية (yüzde)</span>.
+            <div class="sol-answer">الأحمر: 50% | الأبيض: 30% | الأسود: 20%</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 16 — مستقيم مساعد موازٍ</div>
+          <div class="sol-body">
+            رسم <span class="kw">مستقيم مساعد موازٍ (yardımcı paralel doğru)</span>، ثم نقل زاويتي 70° و60° بالتناظر.
+            <div class="sol-answer">∠EOH = 130°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--geo)">السؤال 17 — شبه منحرف متساوي الساقين</div>
+          <div class="sol-body">
+            تكوين <span class="kw">متوازي أضلاع مساعد (yardımcı paralelkenar)</span>، ثم إظهار أن الشكل <span class="kw">شبه منحرف متساوي الساقين (ikizkenar yamuk)</span>.
+            <div class="sol-answer">زوايا ABCD: 80°، 80°، 100°، 100°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--gold)">السؤال 18 — الخماسي المنتظم داخل المربع</div>
+          <div class="sol-body">
+            <span class="kw">زاوية الخماسي المنتظم (düzgün beşgen açısı)</span> = 108°، وقطر <span class="kw">المربع (kare)</span> يصنع 45°، ثم مجموع زوايا <span class="kw">المثلث (üçgen)</span>.
+            <div class="sol-answer">الزاوية المطلوبة = 81°</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--alg)">السؤال 19 — مسألة الدفاتر الجبرية</div>
+          <div class="sol-body">
+            ثمن 5 دفاتر = 5(x+10)، والباقي = 500 − هذا المبلغ.
+            <div class="sol-answer">العبارة = 500 − 5(x+10)، عند x=30 الباقي = 300 ليرة.</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--alg)">السؤال 20 — أجرة السيارة</div>
+          <div class="sol-body">
+            450 <span class="kw">ثابتة (sabit)</span> + 3 لكل كيلومتر.
+            <div class="sol-answer">العبارة = 450 + 3x، عند x=120 المبلغ = 810 ليرة.</div>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-header" style="background:var(--prob)">السؤال 21 — احتمال شرائح الجزر</div>
+          <div class="sol-body">
+            <span class="kw">احتمال (olasılık)</span> الجزر = عدد شرائح الجزر ÷ مجموع الشرائح = 5 ÷ 12.
+            <div class="sol-answer">الاحتمال = 5/12</div>
+          </div>
+        </div>
+
+      </div><!-- sol-grid -->
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= EXTRA QUESTIONS ============================= -->
+  <div id="extra">
+    <div class="section-header review-bg open" onclick="toggle(this)">
+      <span class="icon">✏️</span>
+      <h2>أسئلة إضافية للتدريب المنزلي — اضغط لإظهار الإجابة</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+      <p style="margin-bottom:1rem;color:#64748b">حاول الإجابة بنفسك أولاً، ثم اضغط "إظهار الإجابة" للتحقق.</p>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--geo)">1</span>
+          <span><strong>الهندسة:</strong> مستقيمان متوازيان قطعهما <span class="kw">قاطع (kesen doğru)</span>، فإذا كانت إحدى <span class="kw">الزوايا الداخلية (iç açılar)</span> 68°، فما قياس الزاوية الداخلية على الجهة نفسها من القاطع؟</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">112° — لأن <span class="kw">الزاويتين الداخليتين على جهة واحدة (iç aynı yönlü açılar)</span> مجموعهما 180°: 180° − 68° = 112°.</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--geo)">2</span>
+          <span><strong>الهندسة:</strong> في <span class="kw">شبه منحرف (yamuk)</span> قاعدتاه متوازيتان، قياس <span class="kw">زاوية (açı)</span> عند <span class="kw">القاعدة العليا (üst taban)</span> = 117°. أوجد الزاوية المجاورة لها على <span class="kw">الساق (yan kenar)</span> نفسها.</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">63° — لأن الزاويتين على الساق نفسها مجموعهما 180°: 180° − 117° = 63°.</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--geo)">3</span>
+          <span><strong>الهندسة:</strong> في <span class="kw">معين (eşkenar dörtgen)</span>، أحد <span class="kw">الأقطار (köşegenler)</span> ينصف زاوية مقدارها 80°. ما قياس كل جزء من هذه الزاوية؟</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">كل جزء = 40° — لأن القطر في المعين ينصف الزاوية إلى جزأين متساويين: 80° ÷ 2 = 40°.</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--geo)">4</span>
+          <span><strong>الهندسة:</strong> في <span class="kw">مستطيل (dikdörtgen)</span>، ما حقيقة <span class="kw">القطرين (köşegenler)</span>: هل هما متعامدان أم متساويان أم لا ينصف أحدهما الآخر؟</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">القطران <strong>متساويان وينصف كل منهما الآخر</strong>، لكنهما ليسا متعامدين دائماً (التعامد خاص بالمعين والمربع).</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--geo)">5</span>
+          <span><strong>الهندسة:</strong> في <span class="kw">مربع (kare)</span>، ما قياس <span class="kw">الزاوية (açı)</span> التي يصنعها <span class="kw">القطر (köşegen)</span> مع أحد <span class="kw">الأضلاع (kenarlar)</span>؟</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">45° — لأن القطر في المربع ينصف الزاوية القائمة 90° إلى جزأين متساويين.</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--num)">6</span>
+          <span><strong>الأعداد:</strong> خسر طفل <span class="kw">25% (yüzde yirmi beş)</span> من 80 نقطة في لعبة. كم نقطة خسر؟ وكم بقي له؟</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">خسر: 80 × 25/100 = 20 نقطة. الباقي: 80 − 20 = 60 نقطة.</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--prob)">7</span>
+          <span><strong>الاحتمال:</strong> في صندوق 7 كرات زرقاء و3 حمراء. إذا سُحبت كرة عشوائياً، فما <span class="kw">الاحتمال (olasılık)</span> أن تكون زرقاء؟</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">7/10 — المجموع الكلي = 10 كرات، الكرات الزرقاء = 7، إذن الاحتمال = 7/10.</div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQuiz(this)">
+          <span class="quiz-num" style="background:var(--alg)">8</span>
+          <span><strong>الجبر:</strong> ثمن <span class="kw">القلم (kalem)</span> الواحد = (x + 4) ليرات. اشترى طالب 6 أقلام. اكتب <span class="kw">العبارة الجبرية (cebirsel ifade)</span> للثمن الكلي.</span>
+          <button class="show-btn">إظهار الإجابة</button>
+        </div>
+        <div class="quiz-ans">الثمن الكلي = 6(x + 4)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ============================= LAST NIGHT REVIEW ============================= -->
+  <div id="review">
+    <div class="section-header review-bg open" onclick="toggle(this)">
+      <span class="icon">🌙</span>
+      <h2>ورقة مراجعة أخيرة ليلة الامتحان</h2>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="accordion-body open">
+      <div class="review-grid">
+
+        <div class="review-card geo">
+          <h4>📐 إذا رأيتَ مستقيمين متوازيين…</h4>
+          <ul>
+            <li>فكّر فوراً في <span class="kw">الزوايا المتناظرة (denk açılar)</span> والمتبادلة والتكامل 180°.</li>
+          </ul>
+        </div>
+
+        <div class="review-card geo">
+          <h4>⬛ إذا رأيتَ مربعاً (kare)…</h4>
+          <ul>
+            <li>فكّر في 90° و45° والقطرين.</li>
+          </ul>
+        </div>
+
+        <div class="review-card geo">
+          <h4>♦️ إذا رأيتَ معيناً (eşkenar dörtgen)…</h4>
+          <ul>
+            <li>فكّر في <span class="kw">التعامد (diklik)</span> وتنصيف الزوايا.</li>
+          </ul>
+        </div>
+
+        <div class="review-card geo">
+          <h4>🔷 إذا رأيتَ شبه منحرف (yamuk)…</h4>
+          <ul>
+            <li>الزاويتان على <span class="kw">الساق (yan kenar)</span> نفسها مجموعهما 180°.</li>
+          </ul>
+        </div>
+
+        <div class="review-card geo">
+          <h4>🔲 الشكل الرباعي المجهول (dörtgen)…</h4>
+          <ul>
+            <li>مجموع <span class="kw">زواياه (açıları)</span> = 360°.</li>
+          </ul>
+        </div>
+
+        <div class="review-card num">
+          <h4>🔢 الكسور والنسب المئوية</h4>
+          <ul>
+            <li>وحّد <span class="kw">المقامات (paydalar)</span> قبل الجمع والطرح.</li>
+            <li>احسب <span class="kw">النسبة المئوية (yüzde)</span> بتحويلها إلى كسر على 100.</li>
+            <li>تأكد من الوحدة: لتر، كغ، متر، ليرة...</li>
+            <li>في المسائل المركّبة: لا تقفز إلى المطلوب مباشرة.</li>
+          </ul>
+        </div>
+
+        <div class="review-card prob">
+          <h4>🎲 الاحتمال والعبارات الجبرية</h4>
+          <ul>
+            <li><span class="kw">المقام (payda)</span> في <span class="kw">الاحتمال (olasılık)</span> = العدد الكلي للتجارب أو العناصر.</li>
+            <li>الأكثر تكراراً = احتمال تجريبي أكبر.</li>
+            <li>ثمن متكرر = عدد × (الثمن الواحد).</li>
+            <li>الباقي = المبلغ المعطى − المصروف.</li>
+            <li>عند <span class="kw">التعويض (yerine koyma)</span>، احترم <span class="kw">الأقواس (parantezler)</span> وترتيب العمليات.</li>
+          </ul>
+        </div>
+
+        <div class="review-card geo">
+          <h4>📏 الزاوية الداخلية للمثلث (üçgen)</h4>
+          <ul>
+            <li>المجموع دائماً = <strong>180°</strong>.</li>
+            <li><span class="kw">مثلث متساوي الأضلاع (eşkenar üçgen)</span>: كل زاوية = 60°.</li>
+            <li><span class="kw">مثلث قائم (dik açılı üçgen)</span>: زاوية قائمة = 90°.</li>
+          </ul>
+        </div>
+
+      </div><!-- review-grid -->
+
+      <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:.8rem;padding:1.2rem 1.5rem;margin-top:1.2rem;border: 2px solid #f59e0b">
+        <strong style="color:#92400e;font-size:1.05rem">💪 توصيات عملية:</strong>
+        <ul style="padding-right:1.2rem;margin-top:.6rem;color:#78350f">
+          <li>اطلب من طفلك أن يشرح بصوته سبب اختياره للقانون قبل أن يحسب.</li>
+          <li>في الهندسة: المهم أن يذكر العلاقة — <span class="kw">متناظرة (denk)</span>، <span class="kw">متبادلة (iç ters)</span>، <span class="kw">متقابلة بالرأس (zıt)</span>، على خط مستقيم...</li>
+          <li>درّبه على كتابة المعطيات بخط واضح على الرسم؛ فهذا يقلل الأخطاء كثيراً.</li>
+          <li>إذا أخطأ، لا تعطِه الحل فوراً. اسأله: ما الشكل؟ ما القاعدة الأقرب؟ ما الزاوية التي تعرفها يقيناً؟</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- container -->
+
+<!-- ============================= FOOTER ============================= -->
+<footer style="text-align:center;padding:1.5rem;background:#0f172a;color:#64748b;font-size:.85rem;margin-top:1rem">
+  رياضيات الصف السادس | 6. Sınıf Matematik &nbsp;·&nbsp; الفصل الثاني – الامتحان الأول &nbsp;·&nbsp; 2. Dönem 1. Yazılı
+</footer>
+
+<!-- ============================= JS ============================= -->
+<script>
+  function toggle(header) {
+    header.classList.toggle('open');
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+  }
+
+  function toggleQuiz(qEl) {
+    const ans = qEl.parentElement.querySelector('.quiz-ans');
+    ans.classList.toggle('visible');
+    const btn = qEl.querySelector('.show-btn');
+    if (btn) btn.textContent = ans.classList.contains('visible') ? 'إخفاء الإجابة' : 'إظهار الإجابة';
+  }
+
+  // Animate weight bars on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.weight-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0%';
+      requestAnimationFrame(() => {
+        setTimeout(() => { el.style.width = w; }, 100);
+      });
+    });
+  });
+
+  // Smooth highlight on nav click
+  document.querySelectorAll('.sticky-nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Open section if collapsed
+        const header = target.querySelector('.section-header');
+        const body = target.querySelector('.accordion-body');
+        if (header && body && !body.classList.contains('open')) {
+          header.classList.add('open');
+          body.classList.add('open');
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
